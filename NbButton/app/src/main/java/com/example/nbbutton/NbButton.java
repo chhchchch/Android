@@ -54,7 +54,7 @@ public class NbButton extends Button {
         RectF rectf = new RectF(-r, -r, r, r);
         canvas.drawArc(rectf, 0,360, false, loadPaint);
     }*/
-    public void onDraw(Canvas canvas){
+    /*public void onDraw(Canvas canvas){
         if(!isFirst)
         {
             paint=new Paint();
@@ -71,6 +71,6 @@ public class NbButton extends Button {
 
         }
 
-    }
+    }*/
 
 }
