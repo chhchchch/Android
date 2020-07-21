@@ -1,5 +1,8 @@
-package com.example.logintest;
+package com.example.logintest.ServiceClass;
 
-public class WordDao extends BasicDao<Word>{
+import com.example.logintest.EntityClass.Word;
+import com.example.logintest.ServiceClass.BasicDao;
+
+public class WordDao extends BasicDao<Word> {
 
 }

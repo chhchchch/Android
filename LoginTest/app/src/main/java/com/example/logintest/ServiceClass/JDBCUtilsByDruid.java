@@ -1,6 +1,5 @@
-package com.example.logintest;
+package com.example.logintest.ServiceClass;
 
-import android.icu.util.LocaleData;
 import android.util.Log;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;

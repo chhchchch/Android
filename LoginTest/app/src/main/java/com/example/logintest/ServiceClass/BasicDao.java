@@ -1,4 +1,4 @@
-package com.example.logintest;
+package com.example.logintest.ServiceClass;
 
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -43,7 +43,7 @@ public class BasicDao<T>{
      * @return
      * @throws Exception
      */
-    public T querySingle(String sql,Class<T> clazz,Object...params) throws Exception{
+    public T querySingle(String sql,Class<T> clazz,Object...params){
 
         Connection connection = null;
         try{
@@ -70,7 +70,7 @@ public class BasicDao<T>{
      * @return
      * @throws Exception
      */
-    public List<T> queryMulti(String sql, Class<T> clazz, Object...params) throws Exception{
+    public List<T> queryMulti(String sql, Class<T> clazz, Object...params){
 
         Connection connection = null;
         try{

@@ -3,14 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
     android:id="@+id/first"
-    android:title="垃圾识别"
-    android:icon="@drawable/camera"></item>
+    android:title="背单词"
+    android:icon="@drawable/scan"></item>
     <item
         android:id="@+id/second"
-        android:title="垃圾分类"
-        android:icon="@drawable/info"></item>
+        android:title="查找"
+        android:icon="@drawable/search"></item>
     <item
         android:id="@+id/third"
+        android:title="学习记录"
+        android:icon="@drawable/study_records">
+    </item>
+
+    <item
+        android:id="@+id/fouth"
         android:title="我的"
-        android:icon="@drawable/me"></item>
+        android:icon="@drawable/mine"></item>
 </menu>

@@ -1,4 +1,4 @@
-package com.example.logintest;
+package com.example.logintest.EntityClass;
 
 
 public class Customer {

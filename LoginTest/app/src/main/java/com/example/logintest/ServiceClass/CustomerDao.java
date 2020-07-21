@@ -1,6 +1,9 @@
-package com.example.logintest;
+package com.example.logintest.ServiceClass;
 
-public class CustomerDao extends BasicDao<Customer>{
+import com.example.logintest.EntityClass.Customer;
+import com.example.logintest.ServiceClass.BasicDao;
+
+public class CustomerDao extends BasicDao<Customer> {
 
 
 

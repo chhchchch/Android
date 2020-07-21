@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#615252</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="introduction_pageColor">#00664f</color>
+    <color name="recognition_pageColor">#99CCCC</color>
+    <color name="search_pageColor">#FFFFCC</color>
+    <color name="colorPageBackground">#26A65B</color>
+    <color name="colorTag">#999999</color>
+    <color name="colorButtonText">#ffffff</color>
+    <color name="colorRecommendText">#e0e2ff</color>
+</resources>

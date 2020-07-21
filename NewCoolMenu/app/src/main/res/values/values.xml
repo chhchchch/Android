@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <declare-styleable name="CoolMenuFrameLayout"><attr format="enum" name="num"><enum name="one" value="1"/><enum name="two" value="2"/><enum name="three" value="3"/><enum name="four" value="4"/><enum name="five" value="5"/></attr></declare-styleable>
+    <dimen name="cl_title_trans">40dp</dimen>
+    <item name="cl_menu" type="id"/>
+    <item name="cl_title" type="id"/>
+    <item name="view0" type="id"/>
+    <item name="view1" type="id"/>
+    <item name="view2" type="id"/>
+    <item name="view3" type="id"/>
+    <item name="view4" type="id"/>
+</resources>

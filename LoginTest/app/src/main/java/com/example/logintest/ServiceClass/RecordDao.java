@@ -1,4 +1,7 @@
 package com.example.logintest.ServiceClass;
 
-public class RecordDao {
+
+import com.example.logintest.EntityClass.Record;
+
+public class RecordDao extends BasicDao<Record>{
 }

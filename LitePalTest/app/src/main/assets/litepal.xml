@@ -19,7 +19,7 @@
 			For example:
     	<version value="1" />
     -->
-    <version value="2" />
+    <version value="1" />
 
     <!--
     	Define your models in the list with mapping tag, LitePal will
@@ -34,7 +34,7 @@
 
     <list>
 
-        <mapping class = "com.example.haoxue.Bean.AddressBean"></mapping>
+        <mapping class = "com.example.litepaltest.LitePalSupport.Note"></mapping>
     </list>
 
     <!--

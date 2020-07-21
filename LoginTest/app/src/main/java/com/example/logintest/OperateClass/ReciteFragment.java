@@ -9,103 +9,124 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.logintest.EntityClass.Record;
+import com.example.logintest.EntityClass.Word;
 import com.example.logintest.R;
+import com.example.logintest.ServiceClass.RecordDao;
+import com.example.logintest.ServiceClass.WordDao;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ScanFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ScanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ScanFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import static com.example.logintest.Utils.Constants.USER_ID;
 
-    private OnFragmentInteractionListener mListener;
 
-    public ScanFragment() {
-        // Required empty public constructor
-    }
+public class ReciteFragment extends Fragment {
+    //按钮
+    Button btn_known;
+    Button btn_unknwn;
+    Button btn_next;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScanFragment newInstance(String param1, String param2) {
-        ScanFragment fragment = new ScanFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    //显示单词信息
+    TextView word_spell;
+    TextView word_mean;
+    //数据库操作对象
+    WordDao wordDao;
+
+    //记录当前数据。
+    int count = 0;
+    boolean isknow;
+    Word w;
+    RecordDao recordDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scan, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        View rootView = inflater.inflate(R.layout.fragment_recite,container,false);
+        btn_known = rootView.findViewById(R.id.known);
+        btn_unknwn = rootView.findViewById(R.id.unknown);
+        btn_next = rootView.findViewById(R.id.next);
+
+        word_spell = rootView.findViewById(R.id.word_spell);
+        word_mean = rootView.findViewById(R.id.word_mean);
+        initView();
+
+
+        return rootView;
+    }
+    public void initView(){
+
+        //获取当前单词的记录
+        recordDao = new RecordDao();
+        Object object = recordDao.scalar("select max(wordId) from record where userId = ?",USER_ID);
+        if(object !=  null){
+            count = Integer.parseInt(object.toString()) + 1;
+        }else {
+            count = 1;
         }
+
+        wordDao = new WordDao();
+        String sql = "select * from vocabulary where id  = ?";
+        w = wordDao.querySingle(sql, Word.class,count++);
+        word_spell.setText(w.getWord());
+        btn_next.setEnabled(false);
+
+
+
+        btn_known.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isknow = true;
+                word_mean.setText(w.getDesc());
+                btn_known.setEnabled(false);
+                btn_unknwn.setEnabled(false);
+                btn_next.setEnabled(true);
+                WriteRecord(isknow,USER_ID,w.getId(),w.getWord());
+
+            }
+        });
+
+        btn_unknwn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isknow = false;
+                word_mean.setText(w.getDesc());
+                btn_known.setEnabled(false);
+                btn_unknwn.setEnabled(false);
+                btn_next.setEnabled(true);
+                WriteRecord(isknow,USER_ID,w.getId(),w.getWord());
+            }
+        });
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                w = wordDao.querySingle(sql,Word.class,count++);
+                word_spell.setText(w.getWord());
+                word_mean.setText("");
+                btn_known.setEnabled(true);
+                btn_unknwn.setEnabled(true);
+                btn_next.setEnabled(false);
+            }
+        });
+
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void WriteRecord(boolean isknow,String userID,int wordId,String word){
+        RecordDao recordDao = new RecordDao();
+        String sql = "insert into record values (?,?,?,?);";
+        recordDao.update(sql,userID,wordId,word,isknow);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }

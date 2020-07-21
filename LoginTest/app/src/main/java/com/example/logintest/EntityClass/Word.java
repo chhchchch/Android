@@ -1,4 +1,4 @@
-package com.example.logintest;
+package com.example.logintest.EntityClass;
 
 public class Word {
     public int id;
@@ -28,6 +28,9 @@ public class Word {
         return word;
     }
     public String getDesc(){
+        return description;
+    }
+    public String getDescription() {
         return description;
     }
     public String toString(){
